@@ -1,4 +1,4 @@
 [k8s_masters]
-k8s-master.localdomain
+k8s-master.localdomain ansible_host=192.168.1.39
 [k8s_workers]
-worker.localdomain
+k8s-worker1.localdomain  ansible_host=192.168.1.142
