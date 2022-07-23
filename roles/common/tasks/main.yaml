@@ -30,14 +30,11 @@
     line: "127.0.0.1 localhost.localdomain localhost {{ ansible_hostname }} {{ comment }}"
     state: present
     backup: yes
-- name: add IP address of all hosts to /etc/hosts
-  vars:
-    comment: '# added by ansible'
+- name: Generate /etc/hosts for all hosts
   lineinfile:
     dest: /etc/hosts
-    regexp: ".* {{ item }} {{ comment }}"
-    line: "{{ hostvars[item]['ansible_env'].SSH_CONNECTION.split(' ')[2] }} {{ item }} {{ comment }}"
+    regexp: '.*{{ item }}$'
+    line: "{{ hostvars[item].ansible_host }} {{item}}"
     state: present
-    backup: yes
-  when: ansible_hostname != item
-  loop: "{{ query('inventory_hostnames', 'all') }}"
+  when: hostvars[item].ansible_host is defined
+  with_items: "{{ groups.all }}"

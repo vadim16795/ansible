@@ -1,4 +1,4 @@
 [k8s_masters]
-192.168.1.39
+k8s-master.localdomain
 [k8s_workers]
-192.168.1.142
+worker.localdomain
