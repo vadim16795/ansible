@@ -1,0 +1,23 @@
+---
+- name: Disable SELinux
+  selinux: state=disabled
+- name: Disable Firewalld
+  service:
+    name: firewalld
+    enabled: no
+    state: stopped
+- name: Mask Firewalld
+  systemd:
+    name: firewalld
+    masked: yes
+- name : Install epel
+  yum: name=epel-release
+- name: Install net-tools
+  yum:
+    state: present
+    name: net-tools
+- name: Install  packages
+  package:
+    state: present
+    name: "{{ item }}"
+  with_items: "{{ packages_to_install }}"

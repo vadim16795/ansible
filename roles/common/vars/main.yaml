@@ -1,0 +1,7 @@
+---
+packages_to_install:
+  - vim-common.x86_64
+  - vim-enhanced.x86_64
+  - mc.x86_64
+  - htop.x86_64
+  - telnet.x86_64
