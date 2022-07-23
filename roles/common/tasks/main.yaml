@@ -31,9 +31,12 @@
     state: present
     backup: yes
 - name: Generate /etc/hosts for all hosts
+  vars:
+    comment: '# added by ansible'
   lineinfile: 
     dest: /etc/hosts
     regexp: '.*{{ item }}$'
-    line: "{{ hostvars[item].ansible_host }} {{item}}"
+    line: "{{ hostvars[item].ansible_host }} {{item}} {{ comment }}"
     state: present
+  when: hostvars[item].ansible_host is defined
   with_items: "{{ groups.all }}"
